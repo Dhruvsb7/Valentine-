@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise ❤️</title>
+    <style>
+        body { margin: 0; background: #000; overflow: hidden; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; color: white; }
+        .heart-bg { position: absolute; color: #ff4d6d; font-size: 18px; animation: float 4s linear infinite; opacity: 0.7; pointer-events: none; }
+        @keyframes float { 0% { transform: translateY(110vh) scale(0.5); opacity: 1; } 100% { transform: translateY(-10vh) scale(1.2); opacity: 0; } }
+        #main-heart { font-size: 100px; cursor: pointer; animation: pulse 1.2s infinite; z-index: 20; text-shadow: 0 0 20px rgba(255, 77, 109, 0.5); }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+        .card { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(15px); padding: 25px; border-radius: 20px; border: 1px solid rgba(255, 255, 255, 0.2); text-align: center; width: 85%; max-width: 300px; z-index: 30; display: none; }
+        .active { display: block; animation: fadeIn 0.8s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+        button { background: #ff4d6d; border: none; padding: 12px; color: white; border-radius: 50px; cursor: pointer; margin-top: 15px; font-weight: bold; width: 100%; box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3); }
+    </style>
+</head>
+<body>
+
+    <div id="main-heart" onclick="startSurprise()">❤️</div>
+
+    <div id="msg1" class="card">
+        <p>Happy Valentine's Day! ❤️<br><br>This page exists only for you to let you know how special you are to me.</p>
+        <button onclick="nextMsg('msg1', 'msg2')">Next ❤️</button>
+    </div>
+
+    <div id="msg2" class="card">
+        <p>Every little thing you do, every smile, every silence, every mood — it all matters to me. You are not just someone I love, you are someone I choose, again and again.</p>
+        <button onclick="nextMsg('msg2', 'msg3')">Next ❤️</button>
+    </div>
+
+    <div id="msg3" class="card">
+        <p>When life gets loud, you are my calm. When things feel heavy, you are my light. I don't want perfect moments, I want real ones with you.</p>
+        <button onclick="nextMsg('msg3', 'msg4')">Next ❤️</button>
+    </div>
+
+    <div id="msg4" class="card">
+        <p>If love had a sound, it would be this song. If love had a feeling, it would be this moment. And if it had a forever, it would be us.</p>
+        <button onclick="nextMsg('msg4', 'msg5')">Next ❤️</button>
+    </div>
+
+    <div id="msg5" class="card">
+        <p>You reached the end... but this feeling? It doesn't end!<br><br><strong>I LOVE YOU DEAR ❤️</strong></p>
+    </div>
+
+    <audio id="bg-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+    </audio>
+
+    <script>
+        function startSurprise() {
+            const music = document.getElementById('bg-music');
+            music.play().catch(e => console.log("Audio needs interaction first"));
+            document.getElementById('main-heart').style.display = 'none';
+            document.getElementById('msg1').classList.add('active');
+        }
+
+        function nextMsg(current, next) {
+            document.getElementById(current).classList.remove('active');
+            document.getElementById(next).classList.add('active');
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-bg');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+        setInterval(createHeart, 300);
+    </script>
+</body>
+</html>
